@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿ using Microsoft.AspNetCore.Mvc;
 using BookManagerApi.Models;
 using BookManagerApi.Services;
 
@@ -46,6 +46,17 @@ namespace BookManagerApi.Controllers
         {
             _bookManagementService.Create(book);
             return CreatedAtAction(nameof(GetBookById), new { id = book.Id }, book);
+        }
+        // DELETE: api/vi/book/6
+        [HttpDelete("{id}")]
+        public IActionResult DeleteBookById(long id)
+        {
+            if (_bookManagementService.BookExists(id))
+            {
+                _bookManagementService.Delete(id);
+                return NoContent();
+            }
+            return NotFound();
         }
     }
 }
